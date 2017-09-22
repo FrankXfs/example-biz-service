@@ -7,6 +7,7 @@ import cn.com.sit.examplebizservice.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class TokenUtil {
 
@@ -26,6 +28,7 @@ public class TokenUtil {
 
     public Optional<Authentication> verifyToken(HttpServletRequest request) {
       final String token = request.getHeader(AUTH_HEADER_NAME);
+      log.info("Token in example service : "+token);
 
       if (token != null && !token.isEmpty()){
         final TokenUser user = parseUserFromToken(token.replace("Bearer","").trim());
